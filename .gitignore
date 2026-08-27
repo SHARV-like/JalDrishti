@@ -1,0 +1,77 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+secrets/
+credentials/
+
+# JavaScript / TypeScript dependencies and generated output
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.next/
+.nuxt/
+.svelte-kit/
+dist/
+build/
+out/
+coverage/
+
+# Python environments, caches, and build artifacts
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+htmlcov/
+*.egg-info/
+pip-wheel-metadata/
+
+# General caches, logs, and temporary files
+.cache/
+tmp/
+temp/
+*.cache
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Large raw datasets (keep small curated samples outside these folders)
+data/raw/
+data/processed/
+datasets/
+raw_data/
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.tif
+*.tiff
+*.geojson
+*.shp
+*.gpkg
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
