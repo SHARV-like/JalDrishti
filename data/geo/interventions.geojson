@@ -2,7 +2,23 @@
   "type": "FeatureCollection",
   "features": [{
     "type": "Feature",
-    "properties": {"id": "demo-intervention-001", "watershed_id": "demo-watershed-001", "intervention_type": "check_dam", "status": "completed", "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "properties": {"id": "demo-intervention-001", "watershed_id": "demo-watershed-001", "name": "Nala Check Dam", "intervention_type": "check_dam", "status": "completed", "impact_score": 84, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
     "geometry": {"type": "Point", "coordinates": [73.007,19.006]}
+  }, {
+    "type": "Feature",
+    "properties": {"id": "demo-intervention-002", "watershed_id": "demo-watershed-001", "name": "Khadak Check Dam", "intervention_type": "check_dam", "status": "completed", "impact_score": 86, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "geometry": {"type": "Point", "coordinates": [73.011,19.004]}
+  }, {
+    "type": "Feature",
+    "properties": {"id": "demo-intervention-003", "watershed_id": "demo-watershed-001", "name": "Upland Farm Pond", "intervention_type": "farm_pond", "status": "completed", "impact_score": 79, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "geometry": {"type": "Point", "coordinates": [73.004,19.009]}
+  }, {
+    "type": "Feature",
+    "properties": {"id": "demo-intervention-004", "watershed_id": "demo-watershed-001", "name": "South Contour Trench", "intervention_type": "contour_trench", "status": "verified", "impact_score": 83, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "geometry": {"type": "Point", "coordinates": [73.009,19.010]}
+  }, {
+    "type": "Feature",
+    "properties": {"id": "demo-intervention-005", "watershed_id": "demo-watershed-001", "name": "East Farm Pond", "intervention_type": "farm_pond", "status": "planned", "impact_score": 0, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "geometry": {"type": "Point", "coordinates": [73.013,19.008]}
   }]
 }

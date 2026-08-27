@@ -1,0 +1,8 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {"type":"Feature","properties":{"id":"demo-risk-001","name":"High Runoff Risk","risk_level":"high","risk_score":88,"data_status":"demo","provenance":{"source_type":"curated_demo","source_name":"JalDrishti MVP","method":"illustrative risk model output"}},"geometry":{"type":"Polygon","coordinates":[[[73.001,19.008],[73.005,19.008],[73.006,19.011],[73.001,19.011],[73.001,19.008]]]}},
+    {"type":"Feature","properties":{"id":"demo-risk-002","name":"Moderate Erosion Risk","risk_level":"medium","risk_score":62,"data_status":"demo","provenance":{"source_type":"curated_demo","source_name":"JalDrishti MVP","method":"illustrative risk model output"}},"geometry":{"type":"Polygon","coordinates":[[[73.010,19.001],[73.014,19.001],[73.014,19.004],[73.011,19.005],[73.010,19.001]]]}},
+    {"type":"Feature","properties":{"id":"demo-risk-003","name":"Watch Zone: Low Vegetation","risk_level":"low","risk_score":34,"data_status":"demo","provenance":{"source_type":"curated_demo","source_name":"JalDrishti MVP","method":"illustrative risk model output"}},"geometry":{"type":"Polygon","coordinates":[[[73.006,19.003],[73.009,19.003],[73.009,19.005],[73.006,19.005],[73.006,19.003]]]}}
+  ]
+}
