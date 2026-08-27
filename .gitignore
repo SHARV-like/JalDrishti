@@ -11,6 +11,7 @@
 *.cer
 secrets/
 credentials/
+backend/uploads/
 
 # JavaScript / TypeScript dependencies and generated output
 node_modules/
