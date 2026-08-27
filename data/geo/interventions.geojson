@@ -1,0 +1,8 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {"id": "demo-intervention-001", "watershed_id": "demo-watershed-001", "intervention_type": "check_dam", "status": "completed", "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "geometry": {"type": "Point", "coordinates": [73.007,19.006]}
+  }]
+}

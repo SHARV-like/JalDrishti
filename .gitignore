@@ -48,6 +48,7 @@ pip-wheel-metadata/
 tmp/
 temp/
 *.cache
+*.tsbuildinfo
 *.log
 *.tmp
 *.swp
@@ -69,6 +70,10 @@ raw_data/
 *.geojson
 *.shp
 *.gpkg
+
+# Curated GeoJSON layers are small, versioned demo inputs rather than raw data.
+!data/geo/
+!data/geo/*.geojson
 
 # Local editor and OS files
 .DS_Store

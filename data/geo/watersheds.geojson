@@ -1,0 +1,13 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {
+      "id": "demo-watershed-001",
+      "name": "Illustrative Demo Watershed",
+      "data_status": "demo",
+      "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative boundary only", "confidence": "not for field use"}
+    },
+    "geometry": {"type": "Polygon", "coordinates": [[[73.000,19.000],[73.015,19.000],[73.015,19.012],[73.000,19.012],[73.000,19.000]]]}
+  }]
+}
