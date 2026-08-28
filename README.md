@@ -52,6 +52,12 @@ npm install
 npm run build
 ```
 
+## Continuous integration
+
+GitHub Actions runs on every push and pull request targeting `main`. The frontend job installs dependencies with the npm cache, runs `npm run lint` only when a lint script is configured, and builds the production dashboard. The backend job uses the pip cache, installs `backend/requirements.txt`, compiles Python sources, and runs pytest when tests are present. No deployment is performed.
+
+Open the repository's **Actions** tab in GitHub, then select **JalDrishti CI** to view a run, its job logs, and any failing step.
+
 ## Environment variables
 
 The MVP runs with its committed demo files and requires no environment variables. When a database or storage service is introduced, create a local `.env` from a documented template; never commit real values. Any future Supabase integration must keep secret/service keys on the server only and enforce row-level security before exposing tables.
