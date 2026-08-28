@@ -1,0 +1,3 @@
+export function DataAssumptions() {
+  return <section className="assumptions-panel" aria-labelledby="assumptions-title"><div><p className="eyebrow">DATA & ASSUMPTIONS</p><h2 id="assumptions-title">Transparent pilot context</h2></div><dl><div><dt>Pilot dataset</dt><dd>Curated JalDrishti MVP demo data; not an operational field record.</dd></div><div><dt>Satellite assets</dt><dd>Prepared illustrative pilot images: 15 Feb 2024 and 18 Feb 2025.</dd></div><div><dt>Scoring</dt><dd>GeoProof and intervention ranking use transparent rule-based MVP scoring.</dd></div><div><dt>Limitations</dt><dd>Satellite indices can vary with season, rainfall, cloud cover, and crop cycles.</dd></div></dl></section>;
+}

@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 
 export type EvidenceResult = { metadata: { gps: { latitude: number; longitude: number } | null; captured_at: string | null; orientation: number | null; image_format: string }; review_message: string | null; original_filename: string | null; geoproof: { total_score: number; verdict: "Verified" | "Needs Review" | "Location Mismatch"; distance_to_nearest_intervention_m: number | null; nearest_intervention: { name: string; latitude: number; longitude: number } | null; explanations: { factor: string; points: number; message: string }[] }; visual_assessment: { label: string; confidence: number; explanation: string; review_status: string; method: string; caveat: string; consistency: { status: string; message: string } }; impact_assessment: { score: number; classification: string; interpretation: string; factors: { name: string; value: number; weight: number; contribution: number; explanation: string }[] } };
 
-type EvidenceUploadProps = { onEvidenceUploaded: (result: EvidenceResult | null) => void };
+export const DEMO_EVIDENCE: EvidenceResult = { metadata: { gps: { latitude: 19.0062, longitude: 73.0072 }, captured_at: "2026-04-21T10:24:00", orientation: 1, image_format: "JPEG" }, review_message: "Demo GPS metadata loaded locally. No upload or external service is used.", original_filename: "jaldirshti-demo-check-dam.jpg", geoproof: { total_score: 100, verdict: "Verified", distance_to_nearest_intervention_m: 31, nearest_intervention: { name: "Nala Check Dam", latitude: 19.006, longitude: 73.007 }, explanations: [{ factor: "GPS inside watershed", points: 45, message: "Demo coordinate is inside the prepared pilot boundary." }, { factor: "Near registered intervention", points: 25, message: "Demo coordinate is 31 m from Nala Check Dam." }, { factor: "Valid GPS metadata", points: 20, message: "Latitude and longitude are available in the demo record." }, { factor: "Capture timestamp", points: 10, message: "A valid demonstration capture time is available." }] }, visual_assessment: { label: "Check Dam", confidence: 88, explanation: "Controlled demo classification matches the registered check-dam site.", review_status: "Verified demo match", method: "Controlled MVP demo classifier", caveat: "A field reviewer must confirm real-world images before operational use.", consistency: { status: "Consistent", message: "The demo visual label matches the registered intervention type." } }, impact_assessment: { score: 91, classification: "Strong pilot signal", interpretation: "Prepared vegetation and water-retention indicators improved after the pilot intervention.", factors: [{ name: "GeoProof", value: 100, weight: 0.25, contribution: 25, explanation: "Local happy-path demo evidence is verified." }, { name: "Vegetation response", value: 86, weight: 0.3, contribution: 25.8, explanation: "Prepared NDVI comparison is positive." }, { name: "Water response", value: 81, weight: 0.25, contribution: 20.3, explanation: "Prepared NDWI comparison is positive." }, { name: "Completion status", value: 100, weight: 0.2, contribution: 20, explanation: "The selected pilot intervention is completed." }] } };
+
+type EvidenceUploadProps = { onEvidenceUploaded: (result: EvidenceResult | null) => void; demoScenarioVersion: number };
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 
-export function EvidenceUpload({ onEvidenceUploaded }: EvidenceUploadProps) {
+export function EvidenceUpload({ onEvidenceUploaded, demoScenarioVersion }: EvidenceUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
@@ -13,6 +15,7 @@ export function EvidenceUpload({ onEvidenceUploaded }: EvidenceUploadProps) {
   const [message, setMessage] = useState("Choose a JPEG or PNG under 10 MB. Files are inspected locally and are not stored.");
 
   useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); }, [preview]);
+  useEffect(() => { if (!demoScenarioVersion) return; setPreview("/images/demo-field-check-dam.svg"); setProgress(100); setResult(DEMO_EVIDENCE); onEvidenceUploaded(DEMO_EVIDENCE); setMessage("Complete happy-path scenario loaded locally: GPS, GeoProof, assessment, and impact are ready."); }, [demoScenarioVersion, onEvidenceUploaded]);
 
   function inspectFile(file: File) {
     if (!["image/jpeg", "image/png"].includes(file.type)) { setMessage("Choose a JPEG or PNG image."); return; }
