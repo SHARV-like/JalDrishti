@@ -10,7 +10,7 @@
     "geometry": {"type": "Point", "coordinates": [73.011,19.004]}
   }, {
     "type": "Feature",
-    "properties": {"id": "demo-intervention-003", "watershed_id": "demo-watershed-001", "name": "Upland Farm Pond", "intervention_type": "farm_pond", "status": "completed", "impact_score": 79, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
+    "properties": {"id": "demo-intervention-003", "watershed_id": "demo-watershed-001", "name": "Upland Farm Pond", "intervention_type": "farm_pond", "status": "In Progress", "impact_score": 0, "data_status": "demo", "provenance": {"source_type": "curated_demo", "source_name": "JalDrishti MVP", "method": "illustrative point only"}},
     "geometry": {"type": "Point", "coordinates": [73.004,19.009]}
   }, {
     "type": "Feature",

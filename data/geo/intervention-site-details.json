@@ -1,0 +1,56 @@
+{
+  "data_status": "demo",
+  "source": "JalDrishti MVP curated pilot dataset — illustrative only",
+  "sites": {
+    "demo-intervention-001": {
+      "completion_date": "18 April 2026",
+      "latest_evidence": {"image": "/images/demo-field-check-dam.svg", "caption": "Demo field-evidence image · 21 April 2026"},
+      "geoproof": {"score": 92, "status": "Verified"},
+      "impact_score": 84,
+      "remaining_risk": "Moderate residual runoff risk",
+      "timeline": [
+        ["Intervention registered", "02 March 2026", "complete"], ["Work completed", "18 April 2026", "complete"], ["Field image uploaded", "21 April 2026", "complete"], ["GeoProof verified", "21 April 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Contour trench review", "next"]
+      ]
+    },
+    "demo-intervention-002": {
+      "completion_date": "06 May 2026",
+      "latest_evidence": {"image": "/images/demo-field-check-dam.svg", "caption": "Demo field-evidence image · 08 May 2026"},
+      "geoproof": {"score": 88, "status": "Verified"},
+      "impact_score": 86,
+      "remaining_risk": "Low to moderate residual risk",
+      "timeline": [
+        ["Intervention registered", "12 March 2026", "complete"], ["Work completed", "06 May 2026", "complete"], ["Field image uploaded", "08 May 2026", "complete"], ["GeoProof verified", "08 May 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Farm pond review", "next"]
+      ]
+    },
+    "demo-intervention-003": {
+      "completion_date": "In progress — target 30 September 2026",
+      "latest_evidence": null,
+      "geoproof": {"score": null, "status": "Evidence pending"},
+      "impact_score": null,
+      "remaining_risk": "Moderate residual risk — evidence required",
+      "timeline": [
+        ["Intervention registered", "20 June 2026", "complete"], ["Work completed", "Not yet recorded", "pending"], ["Field image uploaded", "No evidence uploaded", "pending"], ["GeoProof verified", "Awaiting GPS evidence", "pending"], ["Satellite impact analysed", "Awaiting completion", "pending"], ["Next intervention recommended", "Review after field survey", "next"]
+      ]
+    },
+    "demo-intervention-004": {
+      "completion_date": "29 May 2026",
+      "latest_evidence": {"image": "/images/demo-field-contour-trench.svg", "caption": "Demo field-evidence image · 30 May 2026"},
+      "geoproof": {"score": 95, "status": "Verified"},
+      "impact_score": 83,
+      "remaining_risk": "Low residual risk",
+      "timeline": [
+        ["Intervention registered", "15 March 2026", "complete"], ["Work completed", "29 May 2026", "complete"], ["Field image uploaded", "30 May 2026", "complete"], ["GeoProof verified", "30 May 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Monitor vegetation response", "next"]
+      ]
+    },
+    "demo-intervention-005": {
+      "completion_date": "Not scheduled — planning stage",
+      "latest_evidence": null,
+      "geoproof": {"score": null, "status": "Evidence pending"},
+      "impact_score": null,
+      "remaining_risk": "High residual risk — proposed intervention",
+      "timeline": [
+        ["Intervention registered", "01 August 2026", "complete"], ["Work completed", "Not started", "pending"], ["Field image uploaded", "No evidence uploaded", "pending"], ["GeoProof verified", "Awaiting GPS evidence", "pending"], ["Satellite impact analysed", "Not applicable before completion", "pending"], ["Next intervention recommended", "Farm pond proposed", "next"]
+      ]
+    }
+  }
+}

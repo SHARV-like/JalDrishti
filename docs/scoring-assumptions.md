@@ -21,3 +21,7 @@ The three pilot risk zones use curated `demo` inputs for slope, runoff proxy, ve
 ## Impact and recommendation posture
 
 Satellite, impact, risk, and recommendation values must record their input dates, source, method, limitations, ruleset version, and `data_status`. A demo or estimated result must never be displayed as observed evidence. Any future index uses documented normalised components and weights, and reports association rather than causal proof.
+
+## Intervention site details and timeline v0.1
+
+The site panel reads the curated `data/geo/intervention-site-details.json` pilot dataset. Dates, completion states, GPS coordinates, GeoProof scores, impact scores, remaining-risk labels, and evidence-timeline events are illustrative demo records, not operational site records. The local SVG images are explicitly labelled illustrative demo field evidence. An incomplete site displays an empty state; it must not be treated as verified until a field image with valid evidence is reviewed.
