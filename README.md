@@ -7,8 +7,8 @@ JalDrishti connects field evidence, watershed geometry, prepared satellite indic
 - `frontend/` — React, Vite, and Tailwind dashboard.
 - `backend/` — FastAPI service with versioned API routes and pure scoring services.
 - `data/geo/` — small, illustrative GeoJSON demo layers.
-- `data/images/` — approved demo field-image location (no images committed yet).
-- `data/satellite/` — prepared satellite asset metadata and placeholders.
+- `data/images/` — clearly labelled, illustrative demo field-evidence assets.
+- `data/satellite/` — prepared illustrative pilot assets and metadata.
 - `docs/` — scoring assumptions and the presentation script.
 
 All committed sample data is explicitly labelled `demo`. Do not add API keys, personal field-worker information, unapproved photos, or raw rasters to the repository.
