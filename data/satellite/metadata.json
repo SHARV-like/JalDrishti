@@ -1,8 +1,9 @@
 {
   "data_status": "demo",
-  "source_name": "Prepared MVP placeholder",
-  "observed_from": null,
-  "observed_to": null,
-  "method": "No satellite asset has been added. Replace with traceable, prepared source metadata before the demo.",
-  "assets": []
+  "source_name": "JalDrishti prepared illustrative pilot assets",
+  "analysis_area": "Illustrative Demo Watershed · 38.6 ha",
+  "method": "Prepared, offline demo comparison; not observed satellite evidence.",
+  "before": {"date": "2024-02-15", "asset": "/satellite/pilot-before.png", "ndvi": 0.31, "ndwi": 0.12},
+  "after": {"date": "2025-02-18", "asset": "/satellite/pilot-after.png", "ndvi": 0.49, "ndwi": 0.21},
+  "limitations": "Satellite-index changes can also be influenced by season, rainfall, cloud cover, and crop cycles. This pilot indicator does not establish causality."
 }

@@ -1,6 +1,9 @@
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 
 from app.services.exif import ALLOWED_CONTENT_TYPES, MAX_IMAGE_BYTES, extract_image_metadata
+from app.services.geoproof import evaluate_location_geoproof
+from app.services.intervention_detection import detect_intervention
+from app.services.impact import calculate_impact
 
 router = APIRouter(tags=["field-evidence"])
 
@@ -20,11 +23,15 @@ async def inspect_field_evidence(file: UploadFile = File(...)) -> dict:
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail={"code": "invalid_image", "message": str(exc)}) from exc
 
+    geoproof = evaluate_location_geoproof(metadata["gps"], metadata["captured_at"])
     return {
         "id": "local-inspection",
         "data_status": "demo",
         "provenance": {"source_type": "local_upload", "method": "in-memory EXIF inspection", "storage": "not persisted"},
         "original_filename": file.filename,
         "metadata": metadata,
+        "geoproof": geoproof,
+        "visual_assessment": detect_intervention(file.filename, geoproof["nearest_intervention"]),
+        "impact_assessment": calculate_impact(geoproof["total_score"], geoproof["nearest_intervention"]["status"] if geoproof["nearest_intervention"] else None),
         "review_message": None if metadata["gps"] else "No GPS metadata found — manual review required.",
     }

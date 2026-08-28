@@ -1,0 +1,11 @@
+{
+  "method": "controlled_demo_metadata",
+  "caveat": "This MVP classifier recognises only approved demo-image filenames. It is not a general computer-vision model.",
+  "samples": {
+    "gps-demo.jpg": {"label": "Check Dam", "confidence": 82, "explanation": "Approved demo evidence is labelled as a check-dam structure."},
+    "approved-check-dam.jpg": {"label": "Check Dam", "confidence": 88, "explanation": "Approved demo evidence is labelled as a check-dam structure."},
+    "approved-farm-pond.jpg": {"label": "Farm Pond", "confidence": 86, "explanation": "Approved demo evidence is labelled as a farm-pond water-storage site."},
+    "approved-erosion.jpg": {"label": "Erosion", "confidence": 78, "explanation": "Approved demo evidence is labelled as visible erosion."},
+    "approved-waterbody.jpg": {"label": "Waterbody", "confidence": 84, "explanation": "Approved demo evidence is labelled as a waterbody."}
+  }
+}
