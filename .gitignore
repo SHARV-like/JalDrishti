@@ -24,6 +24,7 @@ node_modules/
 dist/
 build/
 out/
+output/
 coverage/
 
 # Python environments, caches, and build artifacts

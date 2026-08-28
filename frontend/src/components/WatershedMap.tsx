@@ -36,7 +36,7 @@ export function WatershedMap({ evidence }: { evidence: EvidenceResult | null }) 
     if (!selectedRisk) return;
     fetch(`http://localhost:8000/api/v1/risk-zones/${selectedRisk.id}/recommendations`).then((response) => response.ok ? response.json() : Promise.reject()).then((data: RecommendationResult) => setRecommendation(data)).catch(() => setRecommendation(null));
   }, [selectedRisk]);
-  const selectedSummary = useMemo(() => selected ? `${selected.name ?? selected.intervention_type} selected` : "Select a marker for field details", [selected]);
+  const selectedSummary = useMemo(() => selected ? <>{selected.name ?? selected.intervention_type} selected · <a className="report-download" href={`http://localhost:8000/api/v1/intervention-sites/${selected.id}/impact-report`} download>Download Impact Report</a></> : "Select a marker for field details", [selected]);
   const selectedDetail = selected ? siteDetails.sites[selected.id] : null;
 
   return <section className="map-shell" aria-label="Watershed GIS map">

@@ -8,6 +8,7 @@
       "geoproof": {"score": 92, "status": "Verified"},
       "impact_score": 84,
       "remaining_risk": "Moderate residual runoff risk",
+      "recommendation": {"action": "Contour Trench", "score": 92, "reasons": ["High runoff proxy needs slope-aligned slowing measures.", "Sparse vegetation indicates scope for infiltration improvement."]},
       "timeline": [
         ["Intervention registered", "02 March 2026", "complete"], ["Work completed", "18 April 2026", "complete"], ["Field image uploaded", "21 April 2026", "complete"], ["GeoProof verified", "21 April 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Contour trench review", "next"]
       ]
@@ -18,6 +19,7 @@
       "geoproof": {"score": 88, "status": "Verified"},
       "impact_score": 86,
       "remaining_risk": "Low to moderate residual risk",
+      "recommendation": {"action": "Farm Pond", "score": 81, "reasons": ["Moderate runoff can be retained locally.", "Drainage distance supports a small storage option after survey."]},
       "timeline": [
         ["Intervention registered", "12 March 2026", "complete"], ["Work completed", "06 May 2026", "complete"], ["Field image uploaded", "08 May 2026", "complete"], ["GeoProof verified", "08 May 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Farm pond review", "next"]
       ]
@@ -28,6 +30,7 @@
       "geoproof": {"score": null, "status": "Evidence pending"},
       "impact_score": null,
       "remaining_risk": "Moderate residual risk — evidence required",
+      "recommendation": {"action": "Contour Trench", "score": 74, "reasons": ["Moderate slope and runoff support contour-based treatment.", "Field survey is required before construction selection."]},
       "timeline": [
         ["Intervention registered", "20 June 2026", "complete"], ["Work completed", "Not yet recorded", "pending"], ["Field image uploaded", "No evidence uploaded", "pending"], ["GeoProof verified", "Awaiting GPS evidence", "pending"], ["Satellite impact analysed", "Awaiting completion", "pending"], ["Next intervention recommended", "Review after field survey", "next"]
       ]
@@ -38,6 +41,7 @@
       "geoproof": {"score": 95, "status": "Verified"},
       "impact_score": 83,
       "remaining_risk": "Low residual risk",
+      "recommendation": {"action": "Check Dam", "score": 66, "reasons": ["Local drainage proximity supports a small barrier review.", "Low residual risk means monitoring remains the first priority."]},
       "timeline": [
         ["Intervention registered", "15 March 2026", "complete"], ["Work completed", "29 May 2026", "complete"], ["Field image uploaded", "30 May 2026", "complete"], ["GeoProof verified", "30 May 2026", "complete"], ["Satellite impact analysed", "15 July 2026", "complete"], ["Next intervention recommended", "Monitor vegetation response", "next"]
       ]
@@ -48,6 +52,7 @@
       "geoproof": {"score": null, "status": "Evidence pending"},
       "impact_score": null,
       "remaining_risk": "High residual risk — proposed intervention",
+      "recommendation": {"action": "Farm Pond", "score": 72, "reasons": ["The proposed storage option addresses seasonal runoff.", "No field evidence is available yet, so engineering approval is required."]},
       "timeline": [
         ["Intervention registered", "01 August 2026", "complete"], ["Work completed", "Not started", "pending"], ["Field image uploaded", "No evidence uploaded", "pending"], ["GeoProof verified", "Awaiting GPS evidence", "pending"], ["Satellite impact analysed", "Not applicable before completion", "pending"], ["Next intervention recommended", "Farm pond proposed", "next"]
       ]

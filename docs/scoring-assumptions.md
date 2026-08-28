@@ -25,3 +25,7 @@ Satellite, impact, risk, and recommendation values must record their input dates
 ## Intervention site details and timeline v0.1
 
 The site panel reads the curated `data/geo/intervention-site-details.json` pilot dataset. Dates, completion states, GPS coordinates, GeoProof scores, impact scores, remaining-risk labels, and evidence-timeline events are illustrative demo records, not operational site records. The local SVG images are explicitly labelled illustrative demo field evidence. An incomplete site displays an empty state; it must not be treated as verified until a field image with valid evidence is reviewed.
+
+## Impact report export v0.1
+
+The one-page PDF report is generated locally by the FastAPI service from the selected curated pilot site, local demo images, and prepared satellite metrics. It contains no personal data, secrets, or live satellite downloads. Its Impact Score, GeoProof, remaining-risk label, suitability recommendation, and satellite indicators are MVP decision-support values and carry the same demo-data and field-survey limitations shown in the dashboard.
