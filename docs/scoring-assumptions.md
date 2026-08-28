@@ -14,6 +14,10 @@ This transparent pilot score is a review aid, not a fraud finding or certified a
 
 Scores of 80–100 are labelled `verified`, 50–79 `needs_review`, and below 50 `not_verified`. Missing information earns no points and should be visible to the user.
 
+## Residual-risk recommendation v0.1
+
+The three pilot risk zones use curated `demo` inputs for slope, runoff proxy, vegetation condition, terrain/soil proxy, and drainage distance. Contour Trench, Farm Pond, and Check Dam scores are deterministic 0–100 suitability rules; the UI displays each input and option score. They are decision support only: final intervention selection requires a field survey and engineering approval.
+
 ## Impact and recommendation posture
 
 Satellite, impact, risk, and recommendation values must record their input dates, source, method, limitations, ruleset version, and `data_status`. A demo or estimated result must never be displayed as observed evidence. Any future index uses documented normalised components and weights, and reports association rather than causal proof.
