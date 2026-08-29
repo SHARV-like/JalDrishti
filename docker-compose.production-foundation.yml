@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: jaldirshti
+      POSTGRES_USER: jaldirshti
+      # Deliberately required from the local environment; do not put passwords
+      # or production credentials in this repository.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD locally before starting PostGIS}
+    ports:
+      - "5432:5432"
+    volumes:
+      - jaldirshti-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jaldirshti -d jaldirshti"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  jaldirshti-postgres:

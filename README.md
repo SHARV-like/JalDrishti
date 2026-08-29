@@ -52,12 +52,45 @@ npm install
 npm run build
 ```
 
+In Git Bash, use the equivalent commands below:
+
+```bash
+cd backend
+./.venv/Scripts/python.exe -m compileall -q app tests
+./.venv/Scripts/python.exe -m pytest
+
+cd ../frontend
+npm run build
+```
+
 ## Continuous integration
 
-GitHub Actions runs on every push and pull request targeting `main`. The frontend job installs dependencies with the npm cache, runs `npm run lint` only when a lint script is configured, and builds the production dashboard. The backend job uses the pip cache, installs `backend/requirements.txt`, compiles Python sources, and runs pytest when tests are present. No deployment is performed.
+GitHub Actions runs on every push and pull request targeting `main`. The frontend job installs dependencies with the npm cache, runs `npm run lint` only when a lint script is configured, builds the production dashboard, and checks high-severity production dependency advisories. The backend job uses the pip cache, installs `backend/requirements.txt`, compiles Python sources, runs pytest when tests are present, and checks Python dependencies for known vulnerabilities. No deployment is performed.
 
 Open the repository's **Actions** tab in GitHub, then select **JalDrishti CI** to view a run, its job logs, and any failing step.
 
 ## Environment variables
 
 The MVP runs with its committed demo files and requires no environment variables. When a database or storage service is introduced, create a local `.env` from a documented template; never commit real values. Any future Supabase integration must keep secret/service keys on the server only and enforce row-level security before exposing tables.
+
+## Phase 1 production foundation
+
+The current MVP continues to run offline with its curated demo data. Phase 1 adds an organisation-scoped production data foundation alongside it: Alembic migrations, role-aware API routes, intervention lifecycle history, audit events, and evidence upload intents. Uploaded production image bytes are designed to live in private object storage; only the object reference and review metadata belong in the database.
+
+For a local database verification, use the bundled SQLite fallback (stored in ignored `backend/tmp/`):
+
+```powershell
+cd backend
+Copy-Item ..\.env.example .env
+.\.venv\Scripts\alembic.exe upgrade head
+.\.venv\Scripts\python.exe -m app.production.cli
+```
+
+For a local PostGIS service, set a password only in your current shell, then start the supplied development container and set the matching untracked `DATABASE_URL` in `backend/.env`:
+
+```powershell
+$env:POSTGRES_PASSWORD = "choose-a-local-password"
+docker compose -f docker-compose.production-foundation.yml up -d
+```
+
+Production requires PostgreSQL/PostGIS, `AUTH_MODE=oidc`, a valid issuer/audience, and private object storage. The API rejects development-header authentication when `APP_ENV=production`.
