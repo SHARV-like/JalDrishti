@@ -6,6 +6,12 @@ JalDrishti will evolve from its working single-watershed MVP into a secure, mult
 
 Production indicators must retain provenance and uncertainty. GeoProof is an evidence-review aid, not fraud-proof verification. Satellite change indicators are observed associations, not causal impact claims. Final intervention selection remains subject to field survey and engineering approval.
 
+## Current baseline and Phase 1 gate
+
+The repository already contains the first safe foundation commit (`286b785`): an Alembic migration that enables PostGIS on PostgreSQL, organisation and membership records, all five roles, auditable intervention transitions, a private-object-key upload-intent abstraction, OIDC issuer/audience validation, and an idempotent importer for the committed demo GeoJSON. The legacy FastAPI routes and React dashboard remain intact for the SIH demonstration.
+
+Phase 1 does **not** create a cloud database, identity tenant, storage bucket, domain, or deployment. Those actions require a separate provider/cost/account/environment-variable review and explicit approval. The remaining Phase 1 hardening work is limited to repository code and documentation: formal architecture, deployment configuration templates, error/rate-limit policy, and integration-test coverage against a disposable PostGIS service.
+
 ## Proposed technology decisions
 
 | Area | Decision | Reason |
@@ -160,3 +166,13 @@ The phased estimate is 20–30 engineering weeks for a small cross-functional te
 - Add organisation-scoped intervention CRUD/lifecycle and audit-event service.
 - Add secure evidence upload-intent/storage abstraction and metadata/review records; retain current in-memory MVP route as demo compatibility.
 - Extend CI and documentation; run migration reconciliation plus unit/integration tests.
+
+## Deployment approval gate
+
+Before any staging or production deployment, present and obtain approval for all of the following:
+
+- selected database, identity, object-storage, frontend, backend, monitoring, and email/alert providers;
+- the provider account/organisation that will own each resource, expected monthly cost and free-tier limits;
+- domains and DNS changes, if any;
+- the complete environment-variable *names* and which system supplies each value (never the values themselves);
+- backup retention, recovery objective, data location, pilot-data/privacy implications, and rollback plan.
