@@ -21,7 +21,16 @@ def upgrade() -> None:
     bind = op.get_bind()
     if bind.dialect.name == "postgresql":
         op.execute("CREATE EXTENSION IF NOT EXISTS postgis")
-    Base.metadata.create_all(bind=bind)
+    # Keep this revision frozen: future ORM models must be created only by
+    # their own revisions, never as a side effect of an earlier migration.
+    foundation_tables = [
+        Base.metadata.tables[name]
+        for name in (
+            "organisations", "users", "memberships", "watersheds", "interventions",
+            "intervention_events", "evidence_items", "audit_events",
+        )
+    ]
+    Base.metadata.create_all(bind=bind, tables=foundation_tables)
     if bind.dialect.name == "postgresql":
         # GeoJSON remains the portable API/import representation. These native
         # columns give production queries spatial indexes and metre-safe

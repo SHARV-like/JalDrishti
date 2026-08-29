@@ -1,0 +1,9 @@
+.operations-panel { display: block; }
+.operations-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.operations-header select { border: 1px solid #d3dad6; border-radius: 5px; padding: 7px; background: inherit; color: inherit; }
+.operations-panel ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 14px 0 9px; padding: 0; list-style: none; }
+.operations-panel li { border-left: 2px solid #537f9a; padding-left: 8px; font-size: .75rem; }
+.operations-panel > span { color: #687771; font-size: .72rem; }
+[data-theme="dark"] .operations-header select { border-color: #43534f; }
+[data-theme="dark"] .operations-panel > span { color: #b3c1bc; }
+@media (max-width: 620px) { .operations-panel ul { grid-template-columns: 1fr; } }

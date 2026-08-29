@@ -6,6 +6,7 @@ from app.routes.recommendations import router as recommendations_router
 from app.routes.field_evidence import router as field_evidence_router
 from app.routes.impact_reports import router as impact_reports_router
 from app.routes.production import router as production_router
+from app.routes.operations import router as operations_router
 from app.production.config import get_settings
 
 settings = get_settings()
@@ -22,6 +23,7 @@ app.include_router(recommendations_router, prefix="/api/v1")
 app.include_router(field_evidence_router, prefix="/api/v1")
 app.include_router(impact_reports_router, prefix="/api/v1")
 app.include_router(production_router, prefix="/api/v1")
+app.include_router(operations_router, prefix="/api/v1")
 
 @app.get("/api/v1/health")
 def health() -> dict[str, str]:

@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from enum import StrEnum
 
-from sqlalchemy import DateTime, ForeignKey, Integer, JSON, String, Text, UniqueConstraint, func
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, JSON, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.production.database import Base
@@ -68,16 +68,46 @@ class Watershed(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
+class Village(Base):
+    __tablename__ = "villages"
+    __table_args__ = (UniqueConstraint("organisation_id", "external_id", name="uq_village_org_external"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="RESTRICT"), index=True)
+    external_id: Mapped[str] = mapped_column(String(160))
+    name: Mapped[str] = mapped_column(String(200))
+    geometry: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    data_status: Mapped[str] = mapped_column(String(30), default="pilot")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class RiskZone(Base):
+    __tablename__ = "risk_zones"
+    __table_args__ = (UniqueConstraint("organisation_id", "external_id", name="uq_risk_zone_org_external"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="RESTRICT"), index=True)
+    external_id: Mapped[str] = mapped_column(String(160))
+    name: Mapped[str] = mapped_column(String(200))
+    risk_level: Mapped[str] = mapped_column(String(30))
+    geometry: Mapped[dict] = mapped_column(JSON)
+    conditions: Mapped[dict] = mapped_column(JSON, default=dict)
+    data_status: Mapped[str] = mapped_column(String(30), default="pilot")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
 class Intervention(Base):
     __tablename__ = "interventions"
     __table_args__ = (UniqueConstraint("organisation_id", "external_id", name="uq_intervention_org_external"),)
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
     organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
     watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="RESTRICT"), index=True)
+    village_id: Mapped[str | None] = mapped_column(ForeignKey("villages.id", ondelete="SET NULL"), nullable=True, index=True)
     external_id: Mapped[str] = mapped_column(String(160))
     name: Mapped[str] = mapped_column(String(200))
     intervention_type: Mapped[str] = mapped_column(String(80))
     lifecycle_status: Mapped[str] = mapped_column(String(30), default=LifecycleStatus.PLANNED.value)
+    assigned_reviewer_id: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     geometry: Mapped[dict] = mapped_column(JSON)
     data_status: Mapped[str] = mapped_column(String(30), default="demo")
     source_attribution: Mapped[dict] = mapped_column(JSON, default=dict)
@@ -110,6 +140,38 @@ class EvidenceItem(Base):
     review_status: Mapped[str] = mapped_column(String(30), default="draft")
     metadata_json: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
     created_by: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class EvidenceObservation(Base):
+    __tablename__ = "evidence_observations"
+    __table_args__ = (UniqueConstraint("evidence_id", name="uq_evidence_observation_evidence"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    evidence_id: Mapped[str] = mapped_column(ForeignKey("evidence_items.id", ondelete="CASCADE"), index=True)
+    captured_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    latitude: Mapped[float | None] = mapped_column(Float, nullable=True)
+    longitude: Mapped[float | None] = mapped_column(Float, nullable=True)
+    gps_accuracy_m: Mapped[float | None] = mapped_column(Float, nullable=True)
+    device_source: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    geoproof_score: Mapped[int] = mapped_column(Integer, default=0)
+    geoproof_factors: Mapped[dict] = mapped_column(JSON, default=dict)
+    consistency_warnings: Mapped[list] = mapped_column(JSON, default=list)
+    duplicate_warning: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class VerificationReview(Base):
+    __tablename__ = "verification_reviews"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    intervention_id: Mapped[str] = mapped_column(ForeignKey("interventions.id", ondelete="CASCADE"), index=True)
+    evidence_id: Mapped[str | None] = mapped_column(ForeignKey("evidence_items.id", ondelete="SET NULL"), nullable=True, index=True)
+    assigned_to: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
+    outcome: Mapped[str] = mapped_column(String(30), default=LifecycleStatus.NEEDS_REVIEW.value)
+    comments: Mapped[str] = mapped_column(Text)
+    reviewed_by: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
