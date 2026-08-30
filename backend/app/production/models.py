@@ -175,6 +175,115 @@ class VerificationReview(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
+class MonitoringJob(Base):
+    __tablename__ = "monitoring_jobs"
+    __table_args__ = (UniqueConstraint("organisation_id", "idempotency_key", name="uq_monitoring_job_idempotency"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="CASCADE"), index=True)
+    intervention_id: Mapped[str | None] = mapped_column(ForeignKey("interventions.id", ondelete="SET NULL"), nullable=True, index=True)
+    job_type: Mapped[str] = mapped_column(String(80))
+    idempotency_key: Mapped[str] = mapped_column(String(200))
+    status: Mapped[str] = mapped_column(String(30), default="queued")
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    requested_by: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class ImageryAcquisition(Base):
+    __tablename__ = "imagery_acquisitions"
+    __table_args__ = (UniqueConstraint("organisation_id", "external_id", name="uq_imagery_org_external"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="CASCADE"), index=True)
+    intervention_id: Mapped[str | None] = mapped_column(ForeignKey("interventions.id", ondelete="SET NULL"), nullable=True, index=True)
+    external_id: Mapped[str] = mapped_column(String(200))
+    provider: Mapped[str] = mapped_column(String(80))
+    acquired_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    cloud_percentage: Mapped[float | None] = mapped_column(Float, nullable=True)
+    coverage_geojson: Mapped[dict] = mapped_column(JSON)
+    processing_status: Mapped[str] = mapped_column(String(30), default="ready")
+    quality_flags: Mapped[list] = mapped_column(JSON, default=list)
+    asset_key: Mapped[str] = mapped_column(String(500))
+    source_attribution: Mapped[dict] = mapped_column(JSON, default=dict)
+    data_status: Mapped[str] = mapped_column(String(30), default="pilot")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class IndicatorObservation(Base):
+    __tablename__ = "indicator_observations"
+    __table_args__ = (UniqueConstraint("acquisition_id", name="uq_indicator_acquisition"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    acquisition_id: Mapped[str] = mapped_column(ForeignKey("imagery_acquisitions.id", ondelete="CASCADE"), index=True)
+    ndvi: Mapped[float | None] = mapped_column(Float, nullable=True)
+    ndwi: Mapped[float | None] = mapped_column(Float, nullable=True)
+    observed_summary: Mapped[str] = mapped_column(Text)
+    confidence: Mapped[str] = mapped_column(String(30), default="pilot")
+    limitations: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class EnvironmentalObservation(Base):
+    __tablename__ = "environmental_observations"
+    __table_args__ = (UniqueConstraint("organisation_id", "external_id", name="uq_environment_org_external"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="CASCADE"), index=True)
+    external_id: Mapped[str] = mapped_column(String(200))
+    provider: Mapped[str] = mapped_column(String(80))
+    observed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    rainfall_mm: Mapped[float | None] = mapped_column(Float, nullable=True)
+    metrics: Mapped[dict] = mapped_column(JSON, default=dict)
+    quality_flags: Mapped[list] = mapped_column(JSON, default=list)
+    data_status: Mapped[str] = mapped_column(String(30), default="pilot")
+
+
+class MonitoringAlert(Base):
+    __tablename__ = "monitoring_alerts"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="CASCADE"), index=True)
+    intervention_id: Mapped[str | None] = mapped_column(ForeignKey("interventions.id", ondelete="SET NULL"), nullable=True, index=True)
+    alert_type: Mapped[str] = mapped_column(String(80))
+    severity: Mapped[str] = mapped_column(String(30), default="info")
+    message: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(30), default="open")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class RecommendationRuleset(Base):
+    __tablename__ = "recommendation_rulesets"
+    __table_args__ = (UniqueConstraint("organisation_id", "region_key", "version", name="uq_ruleset_org_region_version"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    region_key: Mapped[str] = mapped_column(String(120), default="default")
+    version: Mapped[str] = mapped_column(String(80))
+    rules: Mapped[dict] = mapped_column(JSON)
+    assumptions: Mapped[list] = mapped_column(JSON, default=list)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_by: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class RecommendationRun(Base):
+    __tablename__ = "recommendation_runs"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), index=True)
+    watershed_id: Mapped[str] = mapped_column(ForeignKey("watersheds.id", ondelete="CASCADE"), index=True)
+    risk_zone_id: Mapped[str] = mapped_column(ForeignKey("risk_zones.id", ondelete="CASCADE"), index=True)
+    ruleset_id: Mapped[str] = mapped_column(ForeignKey("recommendation_rulesets.id", ondelete="RESTRICT"), index=True)
+    ruleset_version: Mapped[str] = mapped_column(String(80))
+    inputs: Mapped[dict] = mapped_column(JSON)
+    results: Mapped[list] = mapped_column(JSON)
+    status: Mapped[str] = mapped_column(String(30), default="estimate")
+    approved_by: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_by: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
 class AuditEvent(Base):
     __tablename__ = "audit_events"
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_id)
